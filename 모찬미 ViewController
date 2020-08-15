@@ -1,0 +1,58 @@
+//
+//  ViewController.swift
+//  haeum
+//
+//  Created by swuad_19 on 13/08/2020.
+//  Copyright © 2020 swu. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet var imageView: UIImageView! //이미지뷰
+
+    @IBOutlet var txtName: UITextField! //이름작성
+
+    @IBOutlet var lblsending: UILabel! //저장되었습니다. 코드  
+
+    @IBOutlet var DateTextField: UITextField! //생년월일 선택 코드
+
+    override func viewDidLoad() {
+      super.viewDidLoad()
+        let locale = NSLocale(localeIdentifier: "ko_KO")
+        let datepicker = UIDatePicker()
+        datepicker.locale = locale as Locale
+        datepicker.datePickerMode = UIDatePicker.Mode.date
+        datepicker.addTarget(self, action: #selector(ViewController.DatepickerCh(sender:)), for: UIControl.Event.valueChanged)
+        DateTextField.inputView = datepicker //뷰로드시 한국 시간으로 설정되어 나옴. 
+    }  
+
+    @objc func DatepickerCh(sender:UIDatePicker){
+        let formatter = DateFormatter();
+        formatter.dateStyle = DateFormatter.Style.medium
+        formatter.timeStyle = DateFormatter.Style.none
+        formatter.dateFormat = "yyyy-MM-dd"
+        DateTextField.text = formatter.string(from: sender.date) //시간 바뀔 때마다 텍스트가 변경됨.
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true) //데이트피커 편집 종료
+    }
+    
+    //저장코드
+    @IBAction func txtSend(_ sender: Any) {
+        lblsending.text = "저장되었습니다."
+    }
+
+    @IBAction func addAction(_ sender: Any) {
+
+    }
+
+    @IBAction func trash(_ sender: Any) {       
+
+    }
+
+}
+
+ 
